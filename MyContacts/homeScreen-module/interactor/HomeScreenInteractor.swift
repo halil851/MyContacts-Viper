@@ -34,7 +34,18 @@ class HomeScreenInteractor: PresenterToInteractorHomeScreenProtocol {
     }
     
     func search(with word: String) {
-        print("VIPER, Aranan kelime: \(word)")
+
+        let fetchRequest: NSFetchRequest<Contacts> = Contacts.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "contactName CONTAINS[c] %@", word)
+        let sort = NSSortDescriptor(key: "contactName", ascending: true)
+        fetchRequest.sortDescriptors = [sort]
+        
+        do {
+            allContactsVIPER = try context.fetch(fetchRequest)
+        } catch {
+            print("An error occur while search() method working \(error) ")
+        }
+        homeScreenPresenter?.sendDataToPresenter(peopleList: allContactsVIPER)
     }
     
     func delete(at index: Int) {

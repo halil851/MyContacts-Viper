@@ -11,9 +11,7 @@ import CoreData
 let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
 class ViewController: UIViewController {
-    
-    let context = appDelegate.persistentContainer.viewContext //
-    
+
     var homeScreenPresenterObject: ViewToPresenterHomeScreenProtocol?
 
     @IBOutlet weak var searchBar: UISearchBar!  
@@ -39,12 +37,9 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         updateList()
-        
     }
-   
-    
 }
-
+//MARK: - Presenter To ViewHomeScreenProto
 extension ViewController: PresenterToViewHomeScreenProtocol {
     func sendDataToView(peopleList: [Contacts]) {
         
@@ -112,9 +107,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
  
     func updateList() {
         if isSearching {
-            search(with: searchingWord)
+            homeScreenPresenterObject?.searchContacts(with: searchingWord)
         } else {
-//            getAllContacts()
             homeScreenPresenterObject?.loadAllContacts()
         }
     }
@@ -135,7 +129,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             self.performSegue(withIdentifier: "toDetailScreen", sender: indexPath.row)
             
         }
-        
         return action
     }
     
@@ -145,36 +138,16 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - SearhField Delegate
 
 extension ViewController: UISearchBarDelegate {
-    
-    func search(with contactName: String) {
-        
-        let fetchRequest: NSFetchRequest<Contacts> = Contacts.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "contactName CONTAINS[c] %@", contactName)
-        let sort = NSSortDescriptor(key: "contactName", ascending: true)
-        fetchRequest.sortDescriptors = [sort]
-        
-        do {
-            allContacts = try context.fetch(fetchRequest)
-            contactsTV.reloadData()
-        } catch {
-            print("An error occur while search() method working \(error) ")
-        }
-        
-    }
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-    
-        homeScreenPresenterObject?.searchContacts(with: searchText)
-        
+
         searchingWord = searchText
         
         if searchText.count == 0 {
             isSearching = false
-//            getAllContacts()
             homeScreenPresenterObject?.loadAllContacts()
         } else {
             isSearching = true
-            search(with: searchingWord)
+            homeScreenPresenterObject?.searchContacts(with: searchText)
         }
         
         contactsTV.reloadData()
