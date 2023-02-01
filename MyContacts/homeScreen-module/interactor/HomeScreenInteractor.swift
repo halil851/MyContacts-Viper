@@ -27,8 +27,8 @@ class HomeScreenInteractor: PresenterToInteractorHomeScreenProtocol {
         }
         
         print("allContactsVIPER içinde \(allContactsVIPER.count) adet kayıt var")
-        print("VIPER ile getAllContact methodu çalıştı.")
-        homeScreenPresenter?.sendDataToPresenter(peopleList: allContactsVIPER) /// Gerek olmayabilir.
+        
+        homeScreenPresenter?.sendDataToPresenter(peopleList: allContactsVIPER)
         
         appDelegate.saveContext()
     }
@@ -39,6 +39,11 @@ class HomeScreenInteractor: PresenterToInteractorHomeScreenProtocol {
     
     func delete(at index: Int) {
         print("VIPER, Silmek istenen kişi indexPath.row: \(index)")
+        
+        let deletePerson = self.allContactsVIPER[index]
+        self.context.delete(deletePerson)
+        
+        appDelegate.saveContext()
     }
     
     

@@ -50,7 +50,6 @@ extension ViewController: PresenterToViewHomeScreenProtocol {
         
         allContacts = peopleList
         contactsTV.reloadData()
-        print("sendDataToView works")
     }
     
     
@@ -110,23 +109,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     //MARK: - Data Manipulation
-    
-//    func getAllContacts() { //
-//
-//        let fetchRequest: NSFetchRequest<Contacts> = Contacts.fetchRequest()
-//        let sort = NSSortDescriptor(key: "contactName", ascending: true)
-//        fetchRequest.sortDescriptors = [sort]
-//
-//        do {
-//            allContacts = try context.fetch(fetchRequest)
-//            contactsTV.reloadData()
-//        } catch {
-//            print("An error occur while getAllContacts() method working \(error) ")
-//        }
-//
-//        print("allContacts içinde \(allContacts.count) adet kayıt var")
-//    }
-    
+ 
     func updateList() {
         if isSearching {
             search(with: searchingWord)
@@ -138,11 +121,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func delete(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "Delete") { _, _, _  in
-            
-            let deletePerson = self.allContacts[indexPath.row]
-            self.context.delete(deletePerson)
-            appDelegate.saveContext()
-            
+            self.homeScreenPresenterObject?.deleteContact(at: indexPath.row)
             self.updateList()
         }
         
