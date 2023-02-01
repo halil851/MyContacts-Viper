@@ -26,7 +26,7 @@ class HomeScreenInteractor: PresenterToInteractorHomeScreenProtocol {
             print("An error occur while getAllContacts() method working \(error) ")
         }
         
-        print("allContactsVIPER içinde \(allContactsVIPER.count) adet kayıt var")
+//        print("allContactsVIPER içinde \(allContactsVIPER.count) adet kayıt var")
         
         homeScreenPresenter?.sendDataToPresenter(peopleList: allContactsVIPER)
         
@@ -49,7 +49,7 @@ class HomeScreenInteractor: PresenterToInteractorHomeScreenProtocol {
     }
     
     func delete(at index: Int) {
-        print("VIPER, Silmek istenen kişi indexPath.row: \(index)")
+//        print("VIPER, Silmek istenen kişi indexPath.row: \(index)")
         
         let deletePerson = self.allContactsVIPER[index]
         self.context.delete(deletePerson)

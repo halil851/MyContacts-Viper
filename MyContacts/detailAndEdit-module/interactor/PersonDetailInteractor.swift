@@ -8,8 +8,11 @@
 import Foundation
 
 class PersonDetailInteractor: PresenterToInteractorDetailProtocol {
+    
+    var detailPresenter: InteractorToPresenterDetailProtocol?
+    
     func edit(_ contactName: String, _ contactPhone: String) {
-        print(contactName, contactPhone)
+        detailPresenter?.sendDataToPresenter(currentName: contactName, currentPhone: contactPhone)
     }
     
     

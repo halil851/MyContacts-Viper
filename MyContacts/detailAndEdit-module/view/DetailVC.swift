@@ -9,8 +9,6 @@ import UIKit
 
 class DetailVC: UIViewController {
     
-    let context = appDelegate.persistentContainer.viewContext
-    
     var detailPresenterObject: ViewToPresenterDetailProtocol?
 
     @IBOutlet weak var contactName: UILabel!
@@ -23,8 +21,6 @@ class DetailVC: UIViewController {
     
     var isContactEditing = false
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,11 +30,13 @@ class DetailVC: UIViewController {
         
         let edit = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editButton))
         navigationItem.rightBarButtonItem = edit
+        
+        guard let personSafe = person else {return}
+        contactName.text = personSafe.contactName
+        contactPhone.text = personSafe.contactPhoneNumber
 
-        if let personSafe = person {
-            contactName.text = personSafe.contactName
-            contactPhone.text = personSafe.contactPhoneNumber
-        }
+        updatePhone.delegate = self
+        
         PersonDetailRouter.createModule(ref: self)
        
     }
@@ -55,28 +53,9 @@ class DetailVC: UIViewController {
         }
         
     }
-    
-    @objc func updateTapped() {
-        
-        let edit = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editButton))
-        navigationItem.rightBarButtonItem = edit
-        
-        detailPresenterObject?.editPerson(updateName.text!.capitalized, updatePhone.text!)
-        contactName.text = updateName.text?.capitalized
-        contactPhone.text = updatePhone.text
-        
-        person?.contactName = updateName.text?.capitalized
-        person?.contactPhoneNumber = updatePhone.text
-        
-        updateName.endEditing(true)
-        updatePhone.endEditing(true)
-        
-        editOrUpdate()
-        appDelegate.saveContext()
-    }
-    
-    
+}
 
+extension DetailVC {
     @IBAction func editButton(_ sender: UIBarButtonItem) {
         startEditing()
         updateName.becomeFirstResponder()
@@ -92,12 +71,10 @@ class DetailVC: UIViewController {
     
     func startEditing() {
         let update = UIBarButtonItem(title: "Update", style: .done, target: self, action: #selector(updateTapped))
+        guard let currentNameSafe = contactName.text,
+              let currentPhoneSafe = contactPhone.text else {return}
         
-        updateName.text = contactName.text?.capitalized
-        updatePhone.text = contactPhone.text
-        
-        person?.contactName = contactName.text?.capitalized
-        person?.contactPhoneNumber = contactPhone.text
+        detailPresenterObject?.currentPersonInfo(currentNameSafe, currentPhoneSafe)
         
         editOrUpdate()
         
@@ -106,6 +83,76 @@ class DetailVC: UIViewController {
         }
         
         navigationItem.rightBarButtonItem = update
-        appDelegate.saveContext()
+    }
+    
+    @objc func updateTapped() {
+        
+        let edit = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editButton))
+        navigationItem.rightBarButtonItem = edit
+        
+        guard let updatedNameSafe = updateName.text,
+              let updatedPhoneSafe = updatePhone.text else {return}
+        
+        detailPresenterObject?.editedPersonInfo(updatedNameSafe, updatedPhoneSafe)
+        
+        updateName.endEditing(true)
+        updatePhone.endEditing(true)
+        
+        editOrUpdate()
     }
 }
+
+extension DetailVC: PresenterToViewDetailProtocol {
+    func sendDataToView(currentName: String, currentPhone: String) {
+        updateName.text = currentName
+        updatePhone.text = currentPhone
+        person?.contactName = currentName
+        person?.contactPhoneNumber = currentPhone
+    }
+    func sendDataToView(updatedName: String, updatedPhone: String) {
+        contactName.text = updatedName
+        contactPhone.text = updatedPhone
+        person?.contactName = updatedName
+        person?.contactPhoneNumber = updatedPhone
+    }
+    
+}
+
+//MARK: - For "+XX (XXX) XXX XX XX" Format
+extension DetailVC: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return false }
+        let newString = (text as NSString).replacingCharacters(in: range, with: string)
+        if updatePhone.isEditing {
+            textField.text = format(with: "+XX (XXX) XXX XX XX", phone: newString)
+        } else {
+            return true
+        }
+        
+        return false
+    }
+    
+    /// mask example: `+X (XXX) XXX-XXXX`
+    func format(with mask: String, phone: String) -> String {
+        let numbers = phone.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
+        var result = ""
+        var index = numbers.startIndex // numbers iterator
+
+        // iterate over the mask characters until the iterator of numbers ends
+        for ch in mask where index < numbers.endIndex {
+            if ch == "X" {
+                // mask requires a number in this place, so take the next one
+                result.append(numbers[index])
+
+                // move numbers iterator to the next index
+                index = numbers.index(after: index)
+
+            } else {
+                result.append(ch) // just append a mask character
+            }
+        }
+        return result
+    }
+}
+
+

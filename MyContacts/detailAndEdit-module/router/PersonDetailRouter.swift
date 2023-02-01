@@ -9,8 +9,15 @@ import Foundation
 
 class PersonDetailRouter: PresenterToRouteDetailProtocol {
     static func createModule(ref: DetailVC) {
-        ref.detailPresenterObject = PersonDetailPresenter()
+        
+        let presenter = PersonDetailPresenter()
+        
+        ref.detailPresenterObject = presenter
+        
         ref.detailPresenterObject?.detailInteractor = PersonDetailInteractor()
+        ref.detailPresenterObject?.detailView = ref
+        
+        ref.detailPresenterObject?.detailInteractor?.detailPresenter = presenter
     }
     
     
