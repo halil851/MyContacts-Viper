@@ -7,6 +7,11 @@
 
 import Foundation
 
-class AddPersonRouter {
+class AddPersonRouter: PresenterToRouterAddPersonProtocol {
+    static func createModule(ref: NewContactVC) {
+        ref.addPersonPresenterObject = AddPersonPresenter()
+        ref.addPersonPresenterObject?.addPersonInteractor = AddPersonInteractor()
+    }
+    
     
 }

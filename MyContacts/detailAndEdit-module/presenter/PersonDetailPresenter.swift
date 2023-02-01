@@ -7,6 +7,12 @@
 
 import Foundation
 
-class PersonDetailPresenter {
+class PersonDetailPresenter: ViewToPresenterDetailProtocol {
+    var detailInteractor: PresenterToInteractorDetailProtocol?
+    
+    func editPerson(_ contactName: String, _ contactPhone: String) {
+        detailInteractor?.edit(contactName, contactPhone)
+    }
+    
     
 }

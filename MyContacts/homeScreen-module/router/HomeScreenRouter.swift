@@ -7,6 +7,18 @@
 
 import Foundation
 
-class HomeScreenRouter {
+class HomeScreenRouter: PresenterToRouterHomeScreenProtocol {
+    static func createModule(ref: ViewController) {
+        
+        let presenter = HomeScreenPresenter()
+        
+        ref.homeScreenPresenterObject = presenter
+        
+        ref.homeScreenPresenterObject?.homeScreenInteractor = HomeScreenInteractor()
+        ref.homeScreenPresenterObject?.homeScreenView = ref
+        
+        ref.homeScreenPresenterObject?.homeScreenInteractor?.homeScreenPresenter = presenter
+    }
+    
     
 }

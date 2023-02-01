@@ -9,8 +9,9 @@ import UIKit
 
 class NewContactVC: UIViewController {
     
-    let context = appDelegate.persistentContainer.viewContext
+    var addPersonPresenterObject: ViewToPresenterAddPersonProtocol?
 
+    
     @IBOutlet weak var contactName: UITextField!
     @IBOutlet weak var contactPhone: UITextField!
     
@@ -19,6 +20,7 @@ class NewContactVC: UIViewController {
 
         contactName.delegate = self
         contactPhone.delegate = self
+        AddPersonRouter.createModule(ref: self)
         
         contactPhone.text = "+90"
     
@@ -30,14 +32,10 @@ class NewContactVC: UIViewController {
  
     @IBAction func addContact(_ sender: UIButton) {
        
-        if contactName.text != "",
-           contactPhone.text != "" {
-            
-            let person = Contacts(context: context)
-            person.contactName = contactName.text?.capitalized
-            person.contactPhoneNumber = contactPhone.text
-            
-            appDelegate.saveContext()
+        if let name = contactName.text,
+           let phone = contactPhone.text {
+                
+            addPersonPresenterObject?.add(name, phone)
         }
         navigationController?.popToRootViewController(animated: true)
     }

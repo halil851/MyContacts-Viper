@@ -12,12 +12,14 @@ let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
 class ViewController: UIViewController {
     
-    let context = appDelegate.persistentContainer.viewContext
+    let context = appDelegate.persistentContainer.viewContext //
+    
+    var homeScreenPresenterObject: ViewToPresenterHomeScreenProtocol?
 
     @IBOutlet weak var searchBar: UISearchBar!  
     @IBOutlet weak var contactsTV: UITableView!
     
-    var allContacts = [Contacts]()
+    var allContacts = [Contacts]() //
     
     var isContactEditing = false
     var isSearching = false
@@ -30,13 +32,27 @@ class ViewController: UIViewController {
         contactsTV.delegate = self
         contactsTV.dataSource = self
         
+        HomeScreenRouter.createModule(ref: self)
+        
         hideKeyboardWhenTappedAround()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         updateList()
+        
     }
    
+    
+}
+
+extension ViewController: PresenterToViewHomeScreenProtocol {
+    func sendDataToView(peopleList: [Contacts]) {
+        
+        allContacts = peopleList
+        contactsTV.reloadData()
+        print("sendDataToView works")
+    }
+    
     
 }
 
@@ -95,25 +111,28 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     //MARK: - Data Manipulation
     
-    func getAllContacts() {
-        
-        let fetchRequest: NSFetchRequest<Contacts> = Contacts.fetchRequest()
-        let sort = NSSortDescriptor(key: "contactName", ascending: true)
-        fetchRequest.sortDescriptors = [sort]
-        
-        do {
-            allContacts = try context.fetch(fetchRequest)
-            contactsTV.reloadData()
-        } catch {
-            print("An error occur while getAllContacts() method working \(error) ")
-        }
-    }
+//    func getAllContacts() { //
+//
+//        let fetchRequest: NSFetchRequest<Contacts> = Contacts.fetchRequest()
+//        let sort = NSSortDescriptor(key: "contactName", ascending: true)
+//        fetchRequest.sortDescriptors = [sort]
+//
+//        do {
+//            allContacts = try context.fetch(fetchRequest)
+//            contactsTV.reloadData()
+//        } catch {
+//            print("An error occur while getAllContacts() method working \(error) ")
+//        }
+//
+//        print("allContacts içinde \(allContacts.count) adet kayıt var")
+//    }
     
     func updateList() {
         if isSearching {
             search(with: searchingWord)
         } else {
-            getAllContacts()
+//            getAllContacts()
+            homeScreenPresenterObject?.loadAllContacts()
         }
     }
     
@@ -166,11 +185,14 @@ extension ViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
     
+        homeScreenPresenterObject?.searchContacts(with: searchText)
+        
         searchingWord = searchText
         
         if searchText.count == 0 {
             isSearching = false
-            getAllContacts()
+//            getAllContacts()
+            homeScreenPresenterObject?.loadAllContacts()
         } else {
             isSearching = true
             search(with: searchingWord)

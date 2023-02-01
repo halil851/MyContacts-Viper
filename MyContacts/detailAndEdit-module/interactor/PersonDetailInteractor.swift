@@ -7,6 +7,10 @@
 
 import Foundation
 
-class PersonDetailInteractor {
+class PersonDetailInteractor: PresenterToInteractorDetailProtocol {
+    func edit(_ contactName: String, _ contactPhone: String) {
+        print(contactName, contactPhone)
+    }
+    
     
 }

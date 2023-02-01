@@ -10,6 +10,8 @@ import UIKit
 class DetailVC: UIViewController {
     
     let context = appDelegate.persistentContainer.viewContext
+    
+    var detailPresenterObject: ViewToPresenterDetailProtocol?
 
     @IBOutlet weak var contactName: UILabel!
     @IBOutlet weak var contactPhone: UILabel!
@@ -37,7 +39,7 @@ class DetailVC: UIViewController {
             contactName.text = personSafe.contactName
             contactPhone.text = personSafe.contactPhoneNumber
         }
-        
+        PersonDetailRouter.createModule(ref: self)
        
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -59,6 +61,7 @@ class DetailVC: UIViewController {
         let edit = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editButton))
         navigationItem.rightBarButtonItem = edit
         
+        detailPresenterObject?.editPerson(updateName.text!.capitalized, updatePhone.text!)
         contactName.text = updateName.text?.capitalized
         contactPhone.text = updatePhone.text
         

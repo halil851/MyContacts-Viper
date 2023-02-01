@@ -7,6 +7,13 @@
 
 import Foundation
 
-class PersonDetailRouter {
+class PersonDetailRouter: PresenterToRouteDetailProtocol {
+    static func createModule(ref: DetailVC) {
+        ref.detailPresenterObject = PersonDetailPresenter()
+        ref.detailPresenterObject?.detailInteractor = PersonDetailInteractor()
+    }
+    
+    
+    
     
 }
