@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailVC: UIViewController, UITextFieldDelegate {
+class DetailVC: UIViewController {
     
     var detailPresenterObject: ViewToPresenterDetailProtocol?
 
@@ -55,6 +55,11 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         
     }
 
+    
+}
+
+extension DetailVC {
+    
     @IBAction func cancelButtonTapped(_ sender: Any) {
         editOrUpdate()
         updateName.endEditing(true)
@@ -62,12 +67,11 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         let edit = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editButton))
         navigationItem.rightBarButtonItem = edit
     }
+    
     @IBAction func updateButtonTapped(_ sender: Any) {
         updateTapped()
     }
-}
-
-extension DetailVC {
+    
     @IBAction func editButton(_ sender: UIBarButtonItem) {
         startEditing()
         updateName.becomeFirstResponder()
@@ -116,6 +120,13 @@ extension DetailVC {
     }
 }
 
+extension DetailVC: UITextFieldDelegate {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        updateName.endEditing(true)
+        updatePhone.endEditing(true)
+    }
+}
+
 extension DetailVC: PresenterToViewDetailProtocol {
     func sendDataToView(currentName: String, currentPhone: String) {
         updateName.text = currentName
@@ -131,6 +142,7 @@ extension DetailVC: PresenterToViewDetailProtocol {
     }
     
 }
+
 
 
 

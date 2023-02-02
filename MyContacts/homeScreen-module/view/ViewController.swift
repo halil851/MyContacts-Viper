@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         
         HomeScreenRouter.createModule(ref: self)
         
-        hideKeyboardWhenTappedAround()
+        contactsTV.keyboardDismissMode = .onDrag
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -179,13 +179,13 @@ extension ViewController: UISearchBarDelegate {
 
 // MARK: - Dismiss Keyboard
 
-extension ViewController {
-    @objc func dismissKeyboard() {
-           view.endEditing(true)
-       }
-    func hideKeyboardWhenTappedAround() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-}
+//extension ViewController {
+//    @objc func dismissKeyboard() {
+//           view.endEditing(true)
+//       }
+//    func hideKeyboardWhenTappedAround() {
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
+//        tap.cancelsTouchesInView = false
+//        view.addGestureRecognizer(tap)
+//    }
+//}
