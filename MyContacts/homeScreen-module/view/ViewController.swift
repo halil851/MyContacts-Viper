@@ -14,7 +14,8 @@ class ViewController: UIViewController {
 
     var homeScreenPresenterObject: ViewToPresenterHomeScreenProtocol?
 
-    @IBOutlet weak var searchBar: UISearchBar!  
+    @IBOutlet weak var contactCounter: UILabel!
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var contactsTV: UITableView!
     
     var allContacts = [Contacts]() //
@@ -44,6 +45,7 @@ extension ViewController: PresenterToViewHomeScreenProtocol {
     func sendDataToView(peopleList: [Contacts]) {
         
         allContacts = peopleList
+        contactCounter.text = "\(allContacts.count) Contacts"
         contactsTV.reloadData()
     }
     

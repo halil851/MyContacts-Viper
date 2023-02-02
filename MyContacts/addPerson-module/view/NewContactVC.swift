@@ -23,6 +23,8 @@ class NewContactVC: UIViewController {
         AddPersonRouter.createModule(ref: self)
         
         contactPhone.text = "+90"
+        
+        
     
     }
     
@@ -65,41 +67,6 @@ extension NewContactVC: UITextFieldDelegate {
     
 }
 
-//MARK: - For "+XX (XXX) XXX XX XX" Format
-extension NewContactVC {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let text = textField.text else { return false }
-        let newString = (text as NSString).replacingCharacters(in: range, with: string)
-        if contactPhone.isEditing {
-            textField.text = format(with: "+XX (XXX) XXX XX XX", phone: newString)
-        } else {
-            return true
-        }
-        
-        return false
-    }
-    
-    /// mask example: `+X (XXX) XXX-XXXX`
-    func format(with mask: String, phone: String) -> String {
-        let numbers = phone.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
-        var result = ""
-        var index = numbers.startIndex // numbers iterator
 
-        // iterate over the mask characters until the iterator of numbers ends
-        for ch in mask where index < numbers.endIndex {
-            if ch == "X" {
-                // mask requires a number in this place, so take the next one
-                result.append(numbers[index])
-
-                // move numbers iterator to the next index
-                index = numbers.index(after: index)
-
-            } else {
-                result.append(ch) // just append a mask character
-            }
-        }
-        return result
-    }
-}
 
 

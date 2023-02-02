@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A9635396297950CC00434F5F /* NewContactVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9635395297950CC00434F5F /* NewContactVC.swift */; };
 		A96353982979514600434F5F /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96353972979514600434F5F /* DetailVC.swift */; };
+		A96A4B27298BBC34002670ED /* StylingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96A4B26298BBC34002670ED /* StylingExtensions.swift */; };
 		A99B57432978566000BBC0D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99B57422978566000BBC0D2 /* AppDelegate.swift */; };
 		A99B57452978566000BBC0D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99B57442978566000BBC0D2 /* SceneDelegate.swift */; };
 		A99B57472978566000BBC0D2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99B57462978566000BBC0D2 /* ViewController.swift */; };
@@ -54,6 +55,7 @@
 /* Begin PBXFileReference section */
 		A9635395297950CC00434F5F /* NewContactVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewContactVC.swift; sourceTree = "<group>"; };
 		A96353972979514600434F5F /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
+		A96A4B26298BBC34002670ED /* StylingExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylingExtensions.swift; sourceTree = "<group>"; };
 		A99B573F2978566000BBC0D2 /* MyContacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyContacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A99B57422978566000BBC0D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A99B57442978566000BBC0D2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			children = (
 				A99B57422978566000BBC0D2 /* AppDelegate.swift */,
 				A99B57442978566000BBC0D2 /* SceneDelegate.swift */,
+				A96A4B26298BBC34002670ED /* StylingExtensions.swift */,
 				A9A4E324298905C400B4E787 /* homeScreen-module */,
 				A9A4E325298905E200B4E787 /* addPerson-module */,
 				A9A4E3262989060500B4E787 /* detailAndEdit-module */,
@@ -478,6 +481,7 @@
 				A9A4E34129890B0B00B4E787 /* AddPersonInteractor.swift in Sources */,
 				A9A4E3312989090300B4E787 /* HomeScreenRouter.swift in Sources */,
 				A9A4E33E29890A6400B4E787 /* AddPersonRouter.swift in Sources */,
+				A96A4B27298BBC34002670ED /* StylingExtensions.swift in Sources */,
 				A9A4E34C29890BFF00B4E787 /* PersonDetailRouter.swift in Sources */,
 				A99B57762978582700BBC0D2 /* ContactCellTVC.swift in Sources */,
 				A9635396297950CC00434F5F /* NewContactVC.swift in Sources */,

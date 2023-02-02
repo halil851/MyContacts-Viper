@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailVC: UIViewController {
+class DetailVC: UIViewController, UITextFieldDelegate {
     
     var detailPresenterObject: ViewToPresenterDetailProtocol?
 
@@ -17,6 +17,9 @@ class DetailVC: UIViewController {
     @IBOutlet weak var updateName: UITextField!
     @IBOutlet weak var updatePhone: UITextField!
     
+//    @IBOutlet weak var cancelLabel: UIButton!
+    @IBOutlet weak var doneLabel: UIButton!
+    
     var person: Contacts?
     
     var isContactEditing = false
@@ -24,9 +27,7 @@ class DetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 20))
-//        updateName.leftView = paddingView
-//        updateName.leftViewMode = .always
+        doneLabel.underline()
         
         let edit = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editButton))
         navigationItem.rightBarButtonItem = edit
@@ -34,7 +35,8 @@ class DetailVC: UIViewController {
         guard let personSafe = person else {return}
         contactName.text = personSafe.contactName
         contactPhone.text = personSafe.contactPhoneNumber
-
+        
+        
         updatePhone.delegate = self
         
         PersonDetailRouter.createModule(ref: self)
@@ -53,6 +55,17 @@ class DetailVC: UIViewController {
         }
         
     }
+    
+//    @IBAction func cancelButton(_ sender: Any) {
+//        print("cancel")
+//        navigationController?.popToRootViewController(animated: true)
+//    }
+    
+    @IBAction func doneButton(_ sender: Any) {
+        print("done")
+//        updateTapped()
+//        navigationController?.popToRootViewController(animated: true)
+    }
 }
 
 extension DetailVC {
@@ -67,6 +80,8 @@ extension DetailVC {
         updatePhone.isHidden = !updatePhone.isHidden
         contactName.isHidden = !contactName.isHidden
         contactPhone.isHidden = !contactPhone.isHidden
+//        cancelLabel.isHidden = !cancelLabel.isHidden
+//        doneLabel.isHidden = !doneLabel.isHidden
     }
     
     func startEditing() {
@@ -118,41 +133,5 @@ extension DetailVC: PresenterToViewDetailProtocol {
     
 }
 
-//MARK: - For "+XX (XXX) XXX XX XX" Format
-extension DetailVC: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let text = textField.text else { return false }
-        let newString = (text as NSString).replacingCharacters(in: range, with: string)
-        if updatePhone.isEditing {
-            textField.text = format(with: "+XX (XXX) XXX XX XX", phone: newString)
-        } else {
-            return true
-        }
-        
-        return false
-    }
-    
-    /// mask example: `+X (XXX) XXX-XXXX`
-    func format(with mask: String, phone: String) -> String {
-        let numbers = phone.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
-        var result = ""
-        var index = numbers.startIndex // numbers iterator
-
-        // iterate over the mask characters until the iterator of numbers ends
-        for ch in mask where index < numbers.endIndex {
-            if ch == "X" {
-                // mask requires a number in this place, so take the next one
-                result.append(numbers[index])
-
-                // move numbers iterator to the next index
-                index = numbers.index(after: index)
-
-            } else {
-                result.append(ch) // just append a mask character
-            }
-        }
-        return result
-    }
-}
 
 

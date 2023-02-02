@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="t4M-zh-1TN">
-    <device id="retina6_12" orientation="portrait" appearance="dark"/>
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -29,6 +29,11 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="go"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vcm-BN-pv0">
+                                <rect key="frame" x="164" y="408.66666666666669" width="65" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Done"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Xip-Ap-3fg"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -36,8 +41,10 @@
                             <constraint firstItem="DFK-Sq-T3X" firstAttribute="leading" secondItem="Xip-Ap-3fg" secondAttribute="leading" constant="10" id="090-kp-DVh"/>
                             <constraint firstItem="Xip-Ap-3fg" firstAttribute="trailing" secondItem="DFK-Sq-T3X" secondAttribute="trailing" constant="10" id="7JG-RV-KQj"/>
                             <constraint firstItem="x9e-CE-22E" firstAttribute="leading" secondItem="Xip-Ap-3fg" secondAttribute="leading" constant="10" id="FNH-0T-d0f"/>
+                            <constraint firstItem="Vcm-BN-pv0" firstAttribute="centerY" secondItem="1oj-de-gQq" secondAttribute="centerY" id="Kf5-8i-rCb"/>
                             <constraint firstItem="x9e-CE-22E" firstAttribute="top" secondItem="Xip-Ap-3fg" secondAttribute="top" constant="30" id="NDN-yP-CWv"/>
                             <constraint firstItem="DFK-Sq-T3X" firstAttribute="height" secondItem="x9e-CE-22E" secondAttribute="height" id="YVT-Hh-m1x"/>
+                            <constraint firstItem="Vcm-BN-pv0" firstAttribute="centerX" secondItem="1oj-de-gQq" secondAttribute="centerX" id="eDR-BT-kOZ"/>
                             <constraint firstItem="DFK-Sq-T3X" firstAttribute="top" secondItem="x9e-CE-22E" secondAttribute="bottom" constant="30" id="eiG-vU-67t"/>
                             <constraint firstItem="Xip-Ap-3fg" firstAttribute="trailing" secondItem="x9e-CE-22E" secondAttribute="trailing" constant="10" id="tzj-ib-OG4"/>
                         </constraints>
@@ -82,6 +89,13 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4Tf-XK-68b">
                                 <rect key="frame" x="0.0" y="211" width="393" height="607"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="I3T-De-x2T">
+                                    <rect key="frame" x="0.0" y="148" width="393" height="60"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="contactCell" rowHeight="70" id="Xk7-SG-gsV" customClass="ContactCellTVC" customModule="MyContacts" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="393" height="70"/>
@@ -141,6 +155,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="contactCounter" destination="I3T-De-x2T" id="1Hl-9U-fk9"/>
                         <outlet property="contactsTV" destination="4Tf-XK-68b" id="Da8-i0-YWq"/>
                         <outlet property="searchBar" destination="RhT-fr-R5Q" id="6TB-dV-C6I"/>
                         <segue destination="Z9e-70-2Lw" kind="show" identifier="toDetailScreen" id="jLF-JS-vHA"/>
@@ -163,7 +178,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="8Kx-l8-5om"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -172,7 +187,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="7Rv-SX-5WC"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -194,10 +209,28 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Mp-oU-fdC">
+                                <rect key="frame" x="170" y="412" width="53" height="28"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Done">
+                                            <attributes>
+                                                <font key="NSFont" size="12" name="Helvetica"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="doneButton:" destination="Z9e-70-2Lw" eventType="touchUpInside" id="bab-ey-Tle"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LDR-mq-rAh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="4Mp-oU-fdC" firstAttribute="centerY" secondItem="ykQ-yA-0ub" secondAttribute="centerY" id="9wn-o0-MJe"/>
                             <constraint firstItem="dmv-8v-dHe" firstAttribute="top" secondItem="LDR-mq-rAh" secondAttribute="top" constant="20" id="CGt-dj-OKl"/>
                             <constraint firstItem="LDR-mq-rAh" firstAttribute="trailing" secondItem="dmv-8v-dHe" secondAttribute="trailing" constant="20" id="Fyy-PJ-AMZ"/>
                             <constraint firstItem="xeg-Oj-QCj" firstAttribute="top" secondItem="K2U-pj-J7v" secondAttribute="bottom" constant="20" id="Rs3-ds-bdu"/>
@@ -211,6 +244,7 @@
                             <constraint firstItem="K2U-pj-J7v" firstAttribute="top" secondItem="LDR-mq-rAh" secondAttribute="top" constant="20" id="hp0-gT-PX0"/>
                             <constraint firstItem="LDR-mq-rAh" firstAttribute="trailing" secondItem="K2U-pj-J7v" secondAttribute="trailing" constant="20" id="iAo-iP-ILw"/>
                             <constraint firstItem="xeg-Oj-QCj" firstAttribute="centerX" secondItem="ykQ-yA-0ub" secondAttribute="centerX" id="lGN-gW-JLV"/>
+                            <constraint firstItem="4Mp-oU-fdC" firstAttribute="centerX" secondItem="ykQ-yA-0ub" secondAttribute="centerX" id="lWd-SU-N86"/>
                             <constraint firstItem="dmv-8v-dHe" firstAttribute="centerX" secondItem="ykQ-yA-0ub" secondAttribute="centerX" id="oie-Hb-ScT"/>
                             <constraint firstItem="K2U-pj-J7v" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LDR-mq-rAh" secondAttribute="leading" id="zF6-Ly-5tp"/>
                             <constraint firstItem="LDR-mq-rAh" firstAttribute="trailing" secondItem="xeg-Oj-QCj" secondAttribute="trailing" constant="20" id="zg8-yP-kpS"/>
@@ -226,6 +260,7 @@
                     <connections>
                         <outlet property="contactName" destination="K2U-pj-J7v" id="exe-NP-dbv"/>
                         <outlet property="contactPhone" destination="xeg-Oj-QCj" id="xoT-sd-eJs"/>
+                        <outlet property="doneLabel" destination="4Mp-oU-fdC" id="Pkk-aB-d5u"/>
                         <outlet property="updateName" destination="dmv-8v-dHe" id="2iO-fY-4T5"/>
                         <outlet property="updatePhone" destination="Mjy-VD-JUZ" id="EFc-nr-bmJ"/>
                     </connections>
