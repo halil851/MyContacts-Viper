@@ -29,10 +29,16 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="go"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vcm-BN-pv0">
-                                <rect key="frame" x="164" y="408.66666666666669" width="65" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PQg-RM-BQu">
+                                <rect key="frame" x="100" y="365" width="193" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="04J-8b-27q"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Done"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Add Contact"/>
+                                <connections>
+                                    <action selector="addContact:" destination="hN3-7t-Smt" eventType="touchUpInside" id="iB7-T2-QSC"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Xip-Ap-3fg"/>
@@ -40,13 +46,14 @@
                         <constraints>
                             <constraint firstItem="DFK-Sq-T3X" firstAttribute="leading" secondItem="Xip-Ap-3fg" secondAttribute="leading" constant="10" id="090-kp-DVh"/>
                             <constraint firstItem="Xip-Ap-3fg" firstAttribute="trailing" secondItem="DFK-Sq-T3X" secondAttribute="trailing" constant="10" id="7JG-RV-KQj"/>
+                            <constraint firstItem="Xip-Ap-3fg" firstAttribute="trailing" secondItem="PQg-RM-BQu" secondAttribute="trailing" constant="100" id="Bvv-DP-NEj"/>
                             <constraint firstItem="x9e-CE-22E" firstAttribute="leading" secondItem="Xip-Ap-3fg" secondAttribute="leading" constant="10" id="FNH-0T-d0f"/>
-                            <constraint firstItem="Vcm-BN-pv0" firstAttribute="centerY" secondItem="1oj-de-gQq" secondAttribute="centerY" id="Kf5-8i-rCb"/>
                             <constraint firstItem="x9e-CE-22E" firstAttribute="top" secondItem="Xip-Ap-3fg" secondAttribute="top" constant="30" id="NDN-yP-CWv"/>
                             <constraint firstItem="DFK-Sq-T3X" firstAttribute="height" secondItem="x9e-CE-22E" secondAttribute="height" id="YVT-Hh-m1x"/>
-                            <constraint firstItem="Vcm-BN-pv0" firstAttribute="centerX" secondItem="1oj-de-gQq" secondAttribute="centerX" id="eDR-BT-kOZ"/>
                             <constraint firstItem="DFK-Sq-T3X" firstAttribute="top" secondItem="x9e-CE-22E" secondAttribute="bottom" constant="30" id="eiG-vU-67t"/>
+                            <constraint firstItem="PQg-RM-BQu" firstAttribute="centerX" secondItem="1oj-de-gQq" secondAttribute="centerX" id="l1u-On-YIj"/>
                             <constraint firstItem="Xip-Ap-3fg" firstAttribute="trailing" secondItem="x9e-CE-22E" secondAttribute="trailing" constant="10" id="tzj-ib-OG4"/>
+                            <constraint firstItem="PQg-RM-BQu" firstAttribute="top" secondItem="DFK-Sq-T3X" secondAttribute="bottom" constant="30" id="u32-m7-9Ng"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Add New Contact" id="W6E-Wf-NZg">
@@ -209,30 +216,42 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Mp-oU-fdC">
-                                <rect key="frame" x="170" y="412" width="53" height="28"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fC4-2P-5EF">
+                                <rect key="frame" x="233" y="315" width="80" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="KvP-dx-bz5"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Done">
-                                            <attributes>
-                                                <font key="NSFont" size="12" name="Helvetica"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </buttonConfiguration>
+                                <buttonConfiguration key="configuration" style="tinted" title="Update"/>
                                 <connections>
-                                    <action selector="doneButton:" destination="Z9e-70-2Lw" eventType="touchUpInside" id="bab-ey-Tle"/>
+                                    <action selector="updateButtonTapped:" destination="Z9e-70-2Lw" eventType="touchUpInside" id="20d-mf-cIC"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9J-4M-uZb">
+                                <rect key="frame" x="80" y="315" width="76.666666666666686" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="rRA-PK-Ji3"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="systemRedColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelButtonTapped:" destination="Z9e-70-2Lw" eventType="touchUpInside" id="MJX-W0-rrX"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LDR-mq-rAh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="4Mp-oU-fdC" firstAttribute="centerY" secondItem="ykQ-yA-0ub" secondAttribute="centerY" id="9wn-o0-MJe"/>
+                            <constraint firstItem="LDR-mq-rAh" firstAttribute="trailing" secondItem="fC4-2P-5EF" secondAttribute="trailing" constant="80" id="2aH-el-gBO"/>
+                            <constraint firstItem="e9J-4M-uZb" firstAttribute="top" secondItem="xeg-Oj-QCj" secondAttribute="bottom" constant="20" id="9CP-h3-AiC"/>
+                            <constraint firstItem="e9J-4M-uZb" firstAttribute="leading" secondItem="LDR-mq-rAh" secondAttribute="leading" constant="80" id="ASa-o5-2dO"/>
+                            <constraint firstItem="e9J-4M-uZb" firstAttribute="leading" secondItem="LDR-mq-rAh" secondAttribute="leading" constant="80" id="Aj5-tt-sKl"/>
+                            <constraint firstItem="fC4-2P-5EF" firstAttribute="top" secondItem="xeg-Oj-QCj" secondAttribute="bottom" constant="20" id="Bj1-b8-wQb"/>
                             <constraint firstItem="dmv-8v-dHe" firstAttribute="top" secondItem="LDR-mq-rAh" secondAttribute="top" constant="20" id="CGt-dj-OKl"/>
+                            <constraint firstItem="fC4-2P-5EF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="e9J-4M-uZb" secondAttribute="trailing" constant="8" symbolic="YES" id="Ch0-oO-EqE"/>
                             <constraint firstItem="LDR-mq-rAh" firstAttribute="trailing" secondItem="dmv-8v-dHe" secondAttribute="trailing" constant="20" id="Fyy-PJ-AMZ"/>
+                            <constraint firstItem="e9J-4M-uZb" firstAttribute="top" secondItem="xeg-Oj-QCj" secondAttribute="bottom" constant="20" id="HAP-On-gC6"/>
                             <constraint firstItem="xeg-Oj-QCj" firstAttribute="top" secondItem="K2U-pj-J7v" secondAttribute="bottom" constant="20" id="Rs3-ds-bdu"/>
                             <constraint firstItem="dmv-8v-dHe" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LDR-mq-rAh" secondAttribute="leading" id="Snu-DW-SXm"/>
                             <constraint firstItem="LDR-mq-rAh" firstAttribute="trailing" secondItem="Mjy-VD-JUZ" secondAttribute="trailing" constant="20" id="Vvn-eQ-XoF"/>
@@ -244,7 +263,6 @@
                             <constraint firstItem="K2U-pj-J7v" firstAttribute="top" secondItem="LDR-mq-rAh" secondAttribute="top" constant="20" id="hp0-gT-PX0"/>
                             <constraint firstItem="LDR-mq-rAh" firstAttribute="trailing" secondItem="K2U-pj-J7v" secondAttribute="trailing" constant="20" id="iAo-iP-ILw"/>
                             <constraint firstItem="xeg-Oj-QCj" firstAttribute="centerX" secondItem="ykQ-yA-0ub" secondAttribute="centerX" id="lGN-gW-JLV"/>
-                            <constraint firstItem="4Mp-oU-fdC" firstAttribute="centerX" secondItem="ykQ-yA-0ub" secondAttribute="centerX" id="lWd-SU-N86"/>
                             <constraint firstItem="dmv-8v-dHe" firstAttribute="centerX" secondItem="ykQ-yA-0ub" secondAttribute="centerX" id="oie-Hb-ScT"/>
                             <constraint firstItem="K2U-pj-J7v" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LDR-mq-rAh" secondAttribute="leading" id="zF6-Ly-5tp"/>
                             <constraint firstItem="LDR-mq-rAh" firstAttribute="trailing" secondItem="xeg-Oj-QCj" secondAttribute="trailing" constant="20" id="zg8-yP-kpS"/>
@@ -258,16 +276,17 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cancelButton" destination="e9J-4M-uZb" id="QyP-Sz-Y5A"/>
                         <outlet property="contactName" destination="K2U-pj-J7v" id="exe-NP-dbv"/>
                         <outlet property="contactPhone" destination="xeg-Oj-QCj" id="xoT-sd-eJs"/>
-                        <outlet property="doneLabel" destination="4Mp-oU-fdC" id="Pkk-aB-d5u"/>
+                        <outlet property="updateButton" destination="fC4-2P-5EF" id="K8O-1t-Zf4"/>
                         <outlet property="updateName" destination="dmv-8v-dHe" id="2iO-fY-4T5"/>
                         <outlet property="updatePhone" destination="Mjy-VD-JUZ" id="EFc-nr-bmJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vrb-BX-lBu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1775" y="358"/>
+            <point key="canvasLocation" x="1774.8091603053435" y="357.74647887323948"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="q2P-mD-yuF">
@@ -294,6 +313,9 @@
         </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

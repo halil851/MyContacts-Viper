@@ -6,12 +6,13 @@
 //
 
 import UIKit
+
 //MARK: - Underline for UIButton
 extension UIButton {
     func underline() {
         guard let text = self.titleLabel?.text else { return }
         let attributedString = NSMutableAttributedString(string: text)
-        //NSAttributedStringKey.foregroundColor : UIColor.blue
+//        NSAttributedStringKey.foregroundColor : UIColor.blue
         attributedString.addAttribute(NSAttributedString.Key.underlineColor, value: self.titleColor(for: .normal)!, range: NSRange(location: 0, length: text.count))
         attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: self.titleColor(for: .normal)!, range: NSRange(location: 0, length: text.count))
         attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: text.count))
@@ -69,13 +70,14 @@ extension DetailVC {
     }
 }
 
+
 //MARK: - For "+XX (XXX) XXX XX XX" Format
 extension NewContactVC {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text else { return false }
         let newString = (text as NSString).replacingCharacters(in: range, with: string)
         if contactPhone.isEditing {
-            textField.text = format(with: "+XX (XXX) XXX XX XX", phone: newString)
+            contactPhone.text = format(with: "+XX (XXX) XXX XX XX", phone: newString)
         } else {
             return true
         }

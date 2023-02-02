@@ -17,8 +17,8 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var updateName: UITextField!
     @IBOutlet weak var updatePhone: UITextField!
     
-//    @IBOutlet weak var cancelLabel: UIButton!
-    @IBOutlet weak var doneLabel: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var updateButton: UIButton!
     
     var person: Contacts?
     
@@ -27,8 +27,6 @@ class DetailVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        doneLabel.underline()
-        
         let edit = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editButton))
         navigationItem.rightBarButtonItem = edit
         
@@ -36,6 +34,7 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         contactName.text = personSafe.contactName
         contactPhone.text = personSafe.contactPhoneNumber
         
+        cancelButton.underline()
         
         updatePhone.delegate = self
         
@@ -55,16 +54,16 @@ class DetailVC: UIViewController, UITextFieldDelegate {
         }
         
     }
-    
-//    @IBAction func cancelButton(_ sender: Any) {
-//        print("cancel")
-//        navigationController?.popToRootViewController(animated: true)
-//    }
-    
-    @IBAction func doneButton(_ sender: Any) {
-        print("done")
-//        updateTapped()
-//        navigationController?.popToRootViewController(animated: true)
+
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        editOrUpdate()
+        updateName.endEditing(true)
+        updatePhone.endEditing(true)
+        let edit = UIBarButtonItem(title: "Edit", style: .done, target: self, action: #selector(editButton))
+        navigationItem.rightBarButtonItem = edit
+    }
+    @IBAction func updateButtonTapped(_ sender: Any) {
+        updateTapped()
     }
 }
 
@@ -80,8 +79,8 @@ extension DetailVC {
         updatePhone.isHidden = !updatePhone.isHidden
         contactName.isHidden = !contactName.isHidden
         contactPhone.isHidden = !contactPhone.isHidden
-//        cancelLabel.isHidden = !cancelLabel.isHidden
-//        doneLabel.isHidden = !doneLabel.isHidden
+        cancelButton.isHidden = !cancelButton.isHidden
+        updateButton.isHidden = !updateButton.isHidden
     }
     
     func startEditing() {

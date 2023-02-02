@@ -23,8 +23,6 @@ class NewContactVC: UIViewController {
         AddPersonRouter.createModule(ref: self)
         
         contactPhone.text = "+90"
-        
-        
     
     }
     
@@ -32,22 +30,35 @@ class NewContactVC: UIViewController {
         contactName.becomeFirstResponder()
     }
  
+    
     @IBAction func addContact(_ sender: UIButton) {
-       
+        
         if let name = contactName.text,
+           contactName.text != "",
            let phone = contactPhone.text {
-                
+
             addPersonPresenterObject?.add(name, phone)
+            navigationController?.popToRootViewController(animated: true)
+            
+        } else {
+            let alert = UIAlertController(title: "Please type a name!", message: "Name field can not be empty!", preferredStyle: .alert)
+            let done = UIAlertAction(title: "Done", style: .default) { action in
+                //When the User click the "Done"
+            }
+            alert.addAction(done)
+            present(alert, animated: true)
+            
         }
-        navigationController?.popToRootViewController(animated: true)
+        
     }
 }
 
 
 //MARK: - Text Field Editing
 extension NewContactVC: UITextFieldDelegate {
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
+       
         contactName.endEditing(true)
         contactPhone.endEditing(true)
     }
@@ -63,8 +74,6 @@ extension NewContactVC: UITextFieldDelegate {
 
         return true
     }
-    
-    
 }
 
 

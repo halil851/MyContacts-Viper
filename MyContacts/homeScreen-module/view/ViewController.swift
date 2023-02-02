@@ -117,10 +117,28 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func delete(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "Delete") { _, _, _  in
-            self.homeScreenPresenterObject?.deleteContact(at: indexPath.row)
-            self.updateList()
+            
+            guard let person = self.allContacts[indexPath.row].contactName else {return}
+            
+            let alert = UIAlertController(title: "Are you sure to DELETE \(person)?", message: "", preferredStyle: .alert)
+            
+            let delete = UIAlertAction(title: "DELETE", style: .destructive) { action in
+                //When the User click the "DELETE"
+                self.homeScreenPresenterObject?.deleteContact(at: indexPath.row)
+                self.updateList()
+            }
+            
+            let cancel = UIAlertAction(title: "Cancel", style: .default) { action in
+                //When the User click the "Cancel"
+                self.updateList()
+            }
+            
+            alert.addAction(delete)
+            alert.addAction(cancel)
+            
+            self.present(alert, animated: true)
+            
         }
-        
         return action
     }
     
